@@ -11,4 +11,12 @@ Rails.application.routes.draw do
     get "/inventory" => "products#inventory"
   end
 
+  namespace :api do
+    get "/boots" => "products#boots"
+  end
+  
+  namespace :api do
+    get "/tent" => "products#tent"
+  end
+
 end
