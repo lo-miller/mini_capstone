@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     get "/inventory" => "products#inventory"
     get "/boots" => "products#boots"
     get "/tent" => "products#tent"
-    get "/query_parameter" => "products#query"
+    get "/query" => "products#query"
+    get "/segment/:name" => "products#segment"
   end
 
 end

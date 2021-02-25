@@ -20,5 +20,10 @@ class Api::ProductsController < ApplicationController
     render "query_param.json.jb"
   end
 
+  def segment
+    @product = Product.find_by({name: params[:name]})
+    render "segment_param.json.jb"
+  end
+  
 end
 
