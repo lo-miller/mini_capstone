@@ -6,13 +6,18 @@ class Api::ProductsController < ApplicationController
   end
 
   def boots
-    @boots = Product.find_by({name: "boots"})
+    @product = Product.find_by({name: "boots"})
     render "boots.json.jb"
    end
 
   def tent    
-    @tent = Product.find_by({name: "tent"})
+    @product = Product.find_by({name: "tent"})
     render "tent.json.jb"
+  end
+
+  def query
+    @product = Product.find_by({name: params[:name]})
+    render "query_param.json.jb"
   end
 
 end

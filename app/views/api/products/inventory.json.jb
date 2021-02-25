@@ -1,1 +1,3 @@
-{message: @inventory}
+#@products.map each do 
+
+{  message: @inventory}

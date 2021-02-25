@@ -9,14 +9,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     get "/inventory" => "products#inventory"
-  end
-
-  namespace :api do
     get "/boots" => "products#boots"
-  end
-  
-  namespace :api do
     get "/tent" => "products#tent"
+    get "/query_parameter" => "products#query"
   end
 
 end
