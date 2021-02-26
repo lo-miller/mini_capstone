@@ -8,11 +8,11 @@ Rails.application.routes.draw do
   # end
 
   namespace :api do
-    get "/inventory" => "products#inventory"
-    get "/boots" => "products#boots"
-    get "/tent" => "products#tent"
-    get "/query" => "products#query"
-    get "/segment/:name" => "products#segment"
+    get "/products" => "products#index"
+    # get "/boots" => "products#boots"
+    # get "/tent" => "products#tent"
+    # get "/query" => "products#query"
+    # get "/segment/:name" => "products#query"
   end
 
 end
