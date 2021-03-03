@@ -1,7 +1,7 @@
 class Api::ProductsController < ApplicationController
 
   def index
-    @index = Product.all
+    @products = Product.all
     render "index.json.jb"
   end
 
