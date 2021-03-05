@@ -1,8 +1,22 @@
+#sort by price low: Product.order("price ASC")
+#sort by price high: Product.order("price DESC")
+#sort by discounted (under 20): Product.where("price <?", 20)
+
+
 class Api::ProductsController < ApplicationController
 
   def index
-    @products = Product.all
+    #@products = Product.all
+    if params[:discount] == "true"
+      @products = Product.where("price <?", 20)
+    elsif params[:sort] && params[:sort_order] 
+      @products = Product.order("#{params[:sort]} #{params[:sort_order]}")      
+    else
+      @products = Product.all
+      @products = @products.order("id ASC")
+    end
     render "index.json.jb"
+  ##{params[:sort]} #{params[:sort_order]} 
   end
 
   def show
@@ -18,7 +32,11 @@ class Api::ProductsController < ApplicationController
       description: params[:description]
     )
     @product.save
-    render "show.json.jb"
+    if @product.save
+      render "show.json.jb"
+    else
+      render "errors.json.jb"
+    end
   end
 
   def update
@@ -28,7 +46,11 @@ class Api::ProductsController < ApplicationController
     @product.image_url = params[:image_url] || product.image_url
     @product.description = params[:description] || product.description
     @product.save
-    render "show.json.jb"
+    if @product.save
+      render "show.json.jb"
+    else
+      render "errors.json.jb"
+    end
   end
  
   def destroy
@@ -36,6 +58,8 @@ class Api::ProductsController < ApplicationController
     @product.delete
     render "destroy.json.jb"
   end
+
+
   
 end
 

@@ -9,3 +9,7 @@ Rails.application.routes.draw do
   end
 
 end
+
+#products?sort=price&sort_order=asc
+#products?sort=price&sort_order=desc
+#products?discount=true
