@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
 
+  belongs_to :supplier
+
   validates :name, :price, :presence => true
   validates :price, numericality: true
   validates :price, :numericality => { :greater_than_or_equal_to => 0 } 
@@ -20,5 +22,9 @@ class Product < ApplicationRecord
   def total
     return price + tax
   end
+
+  # def supplier
+  #   return Supplier.find_by(id: supplier_id)
+  # end
 
 end
