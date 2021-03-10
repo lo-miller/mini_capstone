@@ -6,17 +6,22 @@
 class Api::ProductsController < ApplicationController
 
   def index
-    #@products = Product.all
-    if params[:discount] == "true"
-      @products = Product.where("price <?", 20)
-    elsif params[:sort] && params[:sort_order] 
-      @products = Product.order("#{params[:sort]} #{params[:sort_order]}")      
+
+    if current_user  
+      if params[:discount] == "true"
+        @products = Product.where("price <?", 20)
+      elsif params[:sort] && params[:sort_order] 
+        @products = Product.order("#{params[:sort]} #{params[:sort_order]}")      
+      else
+        @products = Product.all
+        @products = @products.order("id ASC")
+      end
     else
-      @products = Product.all
-      @products = @products.order("id ASC")
+      products = []
     end
-    render "index.json.jb"
-  ##{params[:sort]} #{params[:sort_order]} 
+      render "index.json.jb"
+      p "Here is the current user"
+      p current_user
   end
 
   def show

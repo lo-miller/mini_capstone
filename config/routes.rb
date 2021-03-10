@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :api do
+    
     get "/products" => "products#index"
     get "/products/:id" => "products#show"
     post "/products" => "products#create"
@@ -13,10 +14,13 @@ Rails.application.routes.draw do
     patch "/suppliers/:id" => "suppliers#update"
     delete "/suppliers/:id" => "suppliers#destroy"
 
+    post "/users" => "users#create"
+
+    post "/sessions" => "sessions#create"
+
+    post "/orders" => "orders#create"
+
   end
 
 end
 
-#products?sort=price&sort_order=asc
-#products?sort=price&sort_order=desc
-#products?discount=true
