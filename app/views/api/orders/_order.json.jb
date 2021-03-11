@@ -3,7 +3,7 @@
   user_id: order.user_id,
   product_id: order.product_id,
   quantity: order.quantity,
-  # subtotal: order.subtotal,
-  # total: order.total,
-  # tax: order.tax
+  subtotal: order.subtotal,
+  total: order.total,
+  tax: order.tax
 }
