@@ -1,9 +1,6 @@
-#sort by price low: Product.order("price ASC")
-#sort by price high: Product.order("price DESC")
-#sort by discounted (under 20): Product.where("price <?", 20)
-
-
 class Api::ProductsController < ApplicationController
+
+  before_action :authenticate_admin
 
   def index
 
