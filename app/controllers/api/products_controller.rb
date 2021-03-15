@@ -14,7 +14,7 @@ class Api::ProductsController < ApplicationController
         @products = @products.order("id ASC")
       end
     else
-      products = []
+      @products = []
     end
       render "index.json.jb"
       p "Here is the current user"
