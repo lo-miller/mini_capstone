@@ -18,28 +18,38 @@ class Api::OrdersController < ApplicationController
 
   def create
     p "current_user"
-    p current_user
+    if current_user
+      @products = CartedProduct.where(user_id: current_user.id, status: "carted") 
+      p @products
+    end
 
-    product = Product.find_by(id: params[:product_id])
-    calculated_subtotal = params[:quantity].to_i * product.price
+    calculated_subtotal = 0
+    i = 0
+
+    while i < @products.length
+      product = @products[i]
+      product_quantity = product.quantity.to_i
+      product_price = Product.find_by(id: product.product_id).price.to_i
+      partial_subtotal = product_quantity * product_price
+
+      calculated_subtotal = calculated_subtotal + partial_subtotal
+
+      p "calculated subtotal:"
+      p calculated_subtotal
+
+      i += 1
+    end
+
     calculated_tax = calculated_subtotal * 0.09
     calculated_total = calculated_subtotal + calculated_tax
     
     @order = Order.new(
-      # user_id - auth
       user_id: current_user.id,
-      # product_id - params - add validation that product exists
-      product_id: params[:product_id],
-      # quantity - params
-      quantity: params[:quantity],
-      # subtotal - model method
       subtotal: calculated_subtotal,
-      # tax - model method
       tax: calculated_tax,
-      # total - model method
       total: calculated_total
     )
-    @order.save
+    @order.save!
     render "show.json.jb"
   end
 
