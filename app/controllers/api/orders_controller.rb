@@ -19,17 +19,17 @@ class Api::OrdersController < ApplicationController
   def create
     p "current_user"
     if current_user
-      @products = CartedProduct.where(user_id: current_user.id, status: "carted") 
-      p @products
+      @carted_products = CartedProduct.where(user_id: current_user.id, status: "carted") 
     end
 
     calculated_subtotal = 0
     i = 0
 
-    while i < @products.length
-      product = @products[i]
-      product_quantity = product.quantity.to_i
-      product_price = Product.find_by(id: product.product_id).price.to_i
+    while i < @carted_products.length
+      carted_product = @carted_products[i]
+      product_quantity = carted_product.quantity.to_i
+      product_price = carted_product.product.price.to_i
+      # product_price = Product.find_by(id: product.product_id).price.to_i
       partial_subtotal = product_quantity * product_price
 
       calculated_subtotal = calculated_subtotal + partial_subtotal
@@ -51,6 +51,10 @@ class Api::OrdersController < ApplicationController
     )
     @order.save!
     render "show.json.jb"
+
+    # @carted_products.each do |carted_product|
+    #   carted_product.update(status: "purchased")
+    # end
   end
 
 end
